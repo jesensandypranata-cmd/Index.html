@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Formulir Pendaftaran Komunitas Teknologi</title>
+  <style>
+    /* Simple, rapi, dan semantik */
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --accent:#2b6cb0;
+      --muted:#6b7280;
+      --radius:12px;
+      --maxw:760px;
+      font-family: Inter, Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    body{
+      margin:0;
+      background:linear-gradient(180deg,var(--bg),#eef2f7);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:100vh;
+      padding:24px;
+    }
+    .card{
+      background:var(--card);
+      width:100%;
+      max-width:var(--maxw);
+      border-radius:var(--radius);
+      box-shadow:0 10px 30px rgba(20,20,40,0.06);
+      padding:28px;
+    }
+    h1{
+      margin:0 0 8px 0;
+      font-size:20px;
+      color:#0f172a;
+    }
+    p.lead{ margin:0 0 18px 0; color:var(--muted); font-size:14px; }
+    fieldset{
+      border:1px solid #e6e9ef;
+      padding:14px 16px;
+      margin-bottom:14px;
+      border-radius:8px;
+    }
+    legend{
+      font-weight:600;
+      padding:0 6px;
+      color:var(--accent);
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px;
+    }
+    label{
+      display:block;
+      font-size:13px;
+      color:#0f172a;
+      margin-bottom:6px;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="number"],
+    input[type="date"],
+    input[type="tel"],
+    input[type="url"],
+    select,
+    textarea{
+      width:100%;
+      padding:10px 12px;
+      border-radius:8px;
+      border:1px solid #d6d9e6;
+      font-size:14px;
+      box-sizing:border-box;
+    }
+    textarea{ min-height:100px; resize:vertical; }
+    .full{ grid-column: 1 / -1; }
+    .controls{ display:flex; gap:8px; justify-content:flex-end; margin-top:8px; }
+    button{
+      padding:10px 14px;
+      border-radius:8px;
+      border: none;
+      font-weight:600;
+      cursor:pointer;
+    }
+    button[type="submit"]{ background:var(--accent); color:white; }
+    button[type="reset"]{ background:#e6eefb; color:var(--accent); }
+    .small{ font-size:12px; color:var(--muted); margin-top:6px; }
+    .checkbox-row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .radio-row{ display:flex; gap:12px; align-items:center; }
+    @media (max-width:700px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card" role="main">
+    <h1>Formulir Pendaftaran Komunitas Teknologi</h1>
+    <p class="lead">Isi formulir berikut untuk bergabung. Kolom bertanda * wajib diisi.</p>
+
+    <!-- Form utama -->
+    <form action="submit.html" method="post" enctype="multipart/form-data" autocomplete="on" novalidate>
+      <!-- Data pribadi -->
+      <fieldset>
+        <legend>Data Pribadi</legend>
+        <div class="grid">
+          <div>
+            <label for="fullname">Nama Lengkap *</label>
+            <input id="fullname" name="fullname" type="text" placeholder="Contoh: Rina Pratama" required autocomplete="name" />
+            <div class="small">Gunakan nama lengkap sesuai KTP/identitas.</div>
+          </div>
+
+          <div>
+            <label for="email">Alamat Email *</label>
+            <input id="email" name="email" type="email" placeholder="nama@contoh.com" required autocomplete="email" />
+          </div>
+
+          <div>
+            <label for="password">Kata Sandi *</label>
+            <input id="password" name="password" type="password" placeholder="Minimal 8 karakter" required minlength="8" autocomplete="new-password" />
+            <div class="small">Minimal 8 karakter.</div>
+          </div>
+
+          <div>
+            <label for="phone">Nomor Telepon *</label>
+            <!-- pattern: contoh +62 atau 08 di awal, hanya angka, 9-15 digit -->
+            <input id="phone" name="phone" type="tel" placeholder="+6281234567890 atau 081234567890" required pattern="(\+62|0)[0-9]{8,14}" autocomplete="tel" />
+            <div class="small">Format: +62xxxxxxxxxx atau 08xxxxxxxx (8-15 angka).</div>
+          </div>
+
+          <div>
+            <label for="age">Usia (tahun) *</label>
+            <input id="age" name="age" type="number" placeholder="Contoh: 21" required min="10" max="120" />
+            <div class="small">Masukkan angka antara 10 - 120.</div>
+          </div>
+
+          <div>
+            <label for="birthdate">Tanggal Lahir *</label>
+            <input id="birthdate" name="birthdate" type="date" required />
+          </div>
+
+          <div class="full">
+            <label for="portfolio">Link Portofolio / GitHub</label>
+            <input id="portfolio" name="portfolio" type="url" placeholder="https://github.com/username" autocomplete="url" />
+            <div class="small">Opsional — cantumkan jika memiliki portofolio online.</div>
+          </div>
+
+          <div class="full">
+            <label for="bio">Singkat Tentang Diri (opsional)</label>
+            <textarea id="bio" name="bio" placeholder="Contoh: Saya tertarik pada pengembangan web dan AI..." maxlength="500"></textarea>
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Kelompok: Jenis kelamin -->
+      <fieldset>
+        <legend>Jenis Kelamin</legend>
+        <div class="radio-row" role="radiogroup" aria-label="Jenis Kelamin">
+          <label><input type="radio" name="gender" value="male" required /> Laki-laki</label>
+          <label><input type="radio" name="gender" value="female" /> Perempuan</label>
+          <label><input type="radio" name="gender" value="other" /> Lainnya</label>
+        </div>
+      </fieldset>
+
+      <!-- Minat / bidang -->
+      <fieldset>
+        <legend>Minat / Bidang</legend>
+        <div class="checkbox-row" role="group" aria-label="Minat">
+          <label><input type="checkbox" name="interest[]" value="AI" /> AI</label>
+          <label><input type="checkbox" name="interest[]" value="Web" /> Web</label>
+          <label><input type="checkbox" name="interest[]" value="IoT" /> IoT</label>
+          <label><input type="checkbox" name="interest[]" value="Game" /> Game</label>
+          <label><input type="checkbox" name="interest[]" value="Mobile" /> Mobile</label>
+        </div>
+        <div class="small">Pilih satu atau lebih sesuai minat.</div>
+      </fieldset>
+
+      <!-- Upload foto profil & preferensi -->
+      <fieldset>
+        <legend>Upload & Preferensi</legend>
+        <div class="grid">
+          <div>
+            <label for="avatar">Upload Foto Profil (jpg/png)</label>
+            <input id="avatar" name="avatar" type="file" accept="image/png, image/jpeg" />
+            <div class="small">Maks 2 MB disarankan. Hanya gambar (jpg/png).</div>
+          </div>
+
+          <div>
+            <label for="experience">Tingkat Pengalaman *</label>
+            <select id="experience" name="experience" required>
+              <option value="">-- Pilih --</option>
+              <option value="beginner">Pemula</option>
+              <option value="intermediate">Menengah</option>
+              <option value="advanced">Lanjutan</option>
+            </select>
+          </div>
+
+          <div class="full">
+            <label for="source">Darimana Anda mengetahui komunitas ini?</label>
+            <input id="source" name="source" type="text" placeholder="Contoh: Instagram / Teman / Google" autocomplete="organization" />
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Tombol -->
+      <div class="controls">
+        <button type="reset">Reset</button>
+        <button type="submit">Submit</button>
+      </div>
+
+      <p class="small">Dengan menekan Submit, Anda setuju data dikirim ke server sesuai <em>action</em> form.</p>
+    </form>
+  </main>
+
+  <!-- Minimal client-side pengecekan tambahan (opsional) -->
+  <script>
+    // Contoh validasi sederhana: pastikan satu checkbox interest dipilih
+    (function(){
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(e){
+        const interests = form.querySelectorAll('input[name="interest[]"]:checked');
+        if(interests.length === 0){
+          // Tampilkan peringatan ringan dan cegah submit
+          alert('Silakan pilih minimal satu minat/bidang.');
+          e.preventDefault();
+          return false;
+        }
+        // jika mau, bisa lakukan lebih banyak pengecekan sebelum submit
+      });
+    })();
+  </script>
+</body>
+</html>
